@@ -1,0 +1,37 @@
+version: '3'
+services:
+  zoo1:
+    image: zookeeper
+    restart: always
+    hostname: zoo1
+    ports:
+      - 2181:2181
+    env_file:
+     - ./env/zookeeper/server-1.env
+
+  zoo2:
+    image: zookeeper
+    restart: always
+    hostname: zoo2
+    ports:
+      - 2182:2181
+    env_file:
+      - ./env/zookeeper/server-2.env
+
+  zoo3:
+    image: zookeeper
+    restart: always
+    hostname: zoo3
+    ports:
+      - 2183:2181
+    env_file:
+      - ./env/zookeeper/server-3.env
+
+  kafka:
+    build: .
+    volumes:
+        - '.:/code'
+    ports:
+        - 9092:9092
+    env_file:
+      - ./env/kafka/server-1.env
